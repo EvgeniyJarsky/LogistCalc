@@ -20,6 +20,7 @@ namespace SDKSample
             
         }
 
+        
         void calc(object sender, RoutedEventArgs e)
         {
             countPrice();  
