@@ -1,5 +1,9 @@
 ﻿using System.Windows;
 
+using System.Configuration;
+using System.Collections.Specialized;
+using System.ComponentModel;
+
 namespace WpfUserInterface
 {
     /// <summary>
@@ -11,15 +15,27 @@ namespace WpfUserInterface
 
         public MainWindow()
         {
+            // var d = ConfigurationManager.AppSettings["key0"];
+
             InitializeComponent();
 
-            Price.Text = model.Price.ToString();
-            RollBack.Text = model.RollBack.ToString();
-            PriceForAti.Text = model.atiPrice;
-            MaxPrice.Text = model.maxPrice;
-            count.Content = model.countPrice;
-            labelNDS.Content = model.bidWithRate;
-            labelNoNDS.Content = model.bidWithOutRate;
+            this.Closing += MainWindow_Closing;
+
+            // Цена для АТИ
+            PriceForAti.Text = ConfigurationManager.AppSettings["atiPrice"];
+            // Макс. цена
+            MaxPrice.Text = ConfigurationManager.AppSettings["maxPrice"];
+            // Рассчитать ставку
+            count.Content = ConfigurationManager.AppSettings["countPrice"];
+            // Ставка с НДС
+            labelNDS.Content = ConfigurationManager.AppSettings["bidWithRate"];
+            // Ставка без НДС
+            labelNoNDS.Content = ConfigurationManager.AppSettings["bidWithOutRate"];
+            
+            // Ставка 36000
+            Price.Text = ConfigurationManager.AppSettings["price"];
+            // Откат 1000
+            RollBack.Text = ConfigurationManager.AppSettings["rollBack"];
         }
 
         /// <summary>
@@ -141,6 +157,23 @@ namespace WpfUserInterface
             MaxPriceForAtiWithNDS.Text = model.MaxPriceWithRate.ToString();
             MaxPriceForAtiNoNDS.Text = model.MaxPriceWithOutRate.ToString();
 
+        }
+
+        /// <summary>
+        /// Событие закрытия окна
+        /// </summary>
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            
+            
+            config.AppSettings.Settings["price"].Value = Price.Text;
+            config.AppSettings.Settings["rollBack"].Value = RollBack.Text;
+
+            config.Save();
+            ConfigurationManager.RefreshSection("appSettings");
+
+            //MessageBox.Show("Closing called");
         }
     }
 }

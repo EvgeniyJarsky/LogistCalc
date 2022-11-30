@@ -10,18 +10,9 @@ namespace LogisticCalcLib
     public class MainModel : INotifyPropertyChanged
     {
         /// <summary>
-        /// название файла настроек
-        /// </summary>
-        const string fileName = "setting.ini";
-
-        /// <summary>
         /// Основные фразы
         /// </summary>
-        public readonly string atiPrice       = "Цена для АТИ";
-        public readonly string maxPrice       = "Макс. цена";
-        public readonly string countPrice     = "Расчитать ставку";
-        public readonly string bidWithRate    = "Ставка с НДС";
-        public readonly string bidWithOutRate = "Ставка без НДС";
+        
 
         /// <summary>
         /// Начальная ставка 

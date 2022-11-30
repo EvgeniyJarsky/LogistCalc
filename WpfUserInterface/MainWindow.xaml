@@ -28,7 +28,7 @@
         IsChecked="False" Height="20" Content="Не округлять"/>
         <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="20">Цена</Label>
         <Label Grid.Column="2" Grid.Row="1" 
-        Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="20">Посреднику</Label>
+        Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="20">Комиссия</Label>
         <TextBox Grid.Column="0" Grid.Row="2"
         Name="Price"
         Background="AntiqueWhite" 
