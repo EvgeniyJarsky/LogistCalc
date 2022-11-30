@@ -3,6 +3,7 @@
 using System.Configuration;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows.Media.Media3D;
 
 namespace WpfUserInterface
 {
@@ -15,11 +16,20 @@ namespace WpfUserInterface
 
         public MainWindow()
         {
-            // var d = ConfigurationManager.AppSettings["key0"];
-
             InitializeComponent();
 
             this.Closing += MainWindow_Closing;
+
+            // Присвоим модели последние данные из config
+            try
+            {
+                model.Price = int.Parse(ConfigurationManager.AppSettings["price"]);
+                model.RollBack = int.Parse(ConfigurationManager.AppSettings["rollBack"]);
+            }
+            catch
+            {
+                MessageBox.Show("Внимание!");
+            }
 
             // Цена для АТИ
             PriceForAti.Text = ConfigurationManager.AppSettings["atiPrice"];
@@ -36,6 +46,35 @@ namespace WpfUserInterface
             Price.Text = ConfigurationManager.AppSettings["price"];
             // Откат 1000
             RollBack.Text = ConfigurationManager.AppSettings["rollBack"];
+
+            #region Расчет ставки при запуске программы
+            if (int.TryParse(Price.Text, out var price))
+            {
+                model.Price = price;
+                if (int.TryParse(RollBack.Text, out var rollBack))
+                    model.RollBack = rollBack;
+                else
+                {
+                    MessageBox.Show("Введите корректную комиссию");
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите корректную ставку");
+                return;
+            }
+
+            model.DecreaseBid(0);
+
+            PriceForAtiWithNDS.Text = model.PriceForATIWithRate.ToString();
+            PriceForAtiNoNDS.Text = model.PricengForATIWithOutRate.ToString();
+
+            MaxPriceForAtiWithNDS.Text = model.MaxPriceWithRate.ToString();
+            MaxPriceForAtiNoNDS.Text = model.MaxPriceWithOutRate.ToString();
+            #endregion
+
+
         }
 
         /// <summary>
