@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-
 using System.Configuration;
 using System.Collections.Specialized;
 using System.ComponentModel;
