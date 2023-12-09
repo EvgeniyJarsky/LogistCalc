@@ -57,6 +57,20 @@ namespace LogisticCalcLib
         }
 
         /// <summary>
+        /// Запас
+        /// </summary>
+        private int reserve = 2000;
+        public int Reserve
+        {
+            get { return reserve; }
+            set
+            {
+                reserve = value;
+                OnPropertyChanged("Reserve");
+            }
+        }
+
+        /// <summary>
         /// Цена для выкладывания в АТИ с НДС
         /// </summary>
         private int priceForATIWithRate = 0;
@@ -150,11 +164,46 @@ namespace LogisticCalcLib
             this.RoundUp = roundUp;
 
             this.PriceForATIWithRate = Calc.CalcPrice.WithNDSForATI(this.Price, this.RollBack, roundUp);
-            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, roundUp);
+            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.Reserve, roundUp);
 
             this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, roundUp);
             this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, roundUp);
         }
+
+        ////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Увеличить запас
+        /// </summary>
+        /// <param name="val">на сколько увеличиваем запас</param>
+        public void IncreaseReserve(int val)
+        {
+            this.Reserve += val;
+
+            this.PriceForATIWithRate = Calc.CalcPrice.WithNDSForATI(this.Price, this.RollBack, this.RoundUp);
+            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.Reserve, this.RoundUp);
+
+            this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, this.RoundUp);
+            this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, this.RoundUp);
+        }
+
+        /// <summary>
+        /// Уменьшить запас
+        /// </summary>
+        /// <param name="val">на сколько уменьшаем запас</param>
+        public void DecreaseReserve(int val)
+        {
+            this.Reserve -= val;
+
+            this.PriceForATIWithRate = Calc.CalcPrice.WithNDSForATI(this.Price, this.RollBack, this.RoundUp);
+            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.Reserve, this.RoundUp);
+
+            this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, this.RoundUp);
+            this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, this.RoundUp);
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Увеличить ставку
@@ -165,7 +214,7 @@ namespace LogisticCalcLib
             this.Price += val;
 
             this.PriceForATIWithRate = Calc.CalcPrice.WithNDSForATI(this.Price, this.RollBack, this.RoundUp);
-            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.RoundUp);
+            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.Reserve, this.RoundUp);
 
             this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, this.RoundUp);
             this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, this.RoundUp);
@@ -180,7 +229,7 @@ namespace LogisticCalcLib
             this.Price -= val;
 
             this.PriceForATIWithRate = Calc.CalcPrice.WithNDSForATI(this.Price, this.RollBack, this.RoundUp);
-            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.RoundUp);
+            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.Reserve, this.RoundUp);
 
             this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, this.RoundUp);
             this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, this.RoundUp);
@@ -195,7 +244,7 @@ namespace LogisticCalcLib
             this.RollBack += val;
 
             this.PriceForATIWithRate = Calc.CalcPrice.WithNDSForATI(this.Price, this.RollBack, this.RoundUp);
-            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.RoundUp);
+            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.Reserve, this.RoundUp);
 
             this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, this.RoundUp);
             this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, this.RoundUp);
@@ -210,7 +259,7 @@ namespace LogisticCalcLib
             this.RollBack -= val;
 
             this.PriceForATIWithRate = Calc.CalcPrice.WithNDSForATI(this.Price, this.RollBack, this.RoundUp);
-            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.RoundUp);
+            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.Reserve, this.RoundUp);
 
             this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, this.RoundUp);
             this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, this.RoundUp);
@@ -227,7 +276,7 @@ namespace LogisticCalcLib
                 this.RoundUp = true;
 
             this.PriceForATIWithRate = Calc.CalcPrice.WithNDSForATI(this.Price, this.RollBack, this.RoundUp);
-            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.RoundUp);
+            this.PricengForATIWithOutRate = Calc.CalcPrice.NoNDSForATI(this.Price, this.RollBack, this.Reserve, this.RoundUp);
 
             this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, this.RoundUp);
             this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, this.RoundUp);

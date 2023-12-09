@@ -20,13 +20,13 @@ namespace LogisticCalcLib.Calc
         /// <param name="rollBack">Откат</param>
         /// <param name="IsRound">Округлять или нет</param>
         /// <returns></returns>
-        public static int NoNDSForATI(int price, int rollBack, bool IsRound)
+        public static int NoNDSForATI(int price, int rollBack, int reserve, bool IsRound)
         {
             double rezult = (price - rollBack) / 1.2;
             if (IsRound)
-                return ((int)rezult / 1000) * 1000-1000;
+                return ((int)rezult / 1000) * 1000-reserve;
             else
-                return (int)rezult-1000;
+                return (int)rezult-reserve;
         }
 
         /// <summary>
