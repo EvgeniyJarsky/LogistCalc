@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
+
 namespace LogisticCalcLib
 {
     /// <summary>
@@ -10,17 +11,13 @@ namespace LogisticCalcLib
     public class MainModel : INotifyPropertyChanged
     {
         /// <summary>
-        /// Основные фразы
-        /// </summary>
-        
-
-        /// <summary>
         /// Начальная ставка 
         /// </summary>
+        /// 
         private int price = 30000;
         public int Price 
         {
-            get { return price; }
+            get => price;
             set 
             { 
                 price = value;
@@ -281,5 +278,8 @@ namespace LogisticCalcLib
             this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, this.RoundUp);
             this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, this.RoundUp);
         }
+        
+        
     }
+
 }
