@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calc\CalcPrice.cs" />
+    <Compile Include="SecondModel.cs" />
     <Compile Include="MainModel.cs" />
     <Compile Include="MyExeption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
