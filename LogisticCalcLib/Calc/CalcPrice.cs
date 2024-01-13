@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace LogisticCalcLib.Calc
+﻿namespace LogisticCalcLib.Calc
 {
     /// <summary>
     /// Расчет ставки без НДС, которую нужно выставить в АТИ
@@ -24,9 +17,9 @@ namespace LogisticCalcLib.Calc
         {
             double rezult = (price - rollBack) / 1.2;
             if (IsRound)
-                return ((int)rezult / 1000) * 1000-reserve;
+                return ((int)rezult / 1000) * 1000 - reserve;
             else
-                return (int)rezult-reserve;
+                return (int)rezult - reserve;
         }
 
         /// <summary>

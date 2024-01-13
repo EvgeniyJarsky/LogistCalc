@@ -15,13 +15,13 @@ namespace LogisticCalcLib
         /// </summary>
         /// 
         private int price = 30000;
-        public int Price 
+        public int Price
         {
             get => price;
-            set 
-            { 
+            set
+            {
                 price = value;
-                OnPropertyChanged("Price"); 
+                OnPropertyChanged("Price");
             }
         }
 
@@ -143,7 +143,7 @@ namespace LogisticCalcLib
                 throw new ArgumentNullException("Ставка не может быть NULL", nameof(price));
             if (!int.TryParse(price, out int result))
                 throw new ArgumentException("Ошибка преобразования ставки в целое число", nameof(price));
-            if(result < 0)
+            if (result < 0)
                 throw new NegativeValueException("Ставка не может быть отрицательной", nameof(result));
             #endregion
             Price = result;
@@ -278,8 +278,8 @@ namespace LogisticCalcLib
             this.MaxPriceWithRate = Calc.CalcPrice.WithNDSMax(this.Price, this.RollBack, this.RoundUp);
             this.MaxPriceWithOutRate = Calc.CalcPrice.NoNDSMax(this.Price, this.RollBack, this.RoundUp);
         }
-        
-        
+
+
     }
 
 }
